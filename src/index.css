@@ -1,0 +1,148 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* SMB Evolution.ai Brand Colors */
+    --background: 0 0% 100%;
+    --foreground: 237 48% 11%;
+    
+    /* Primary: Deep Navy + Blue */
+    --primary: 237 48% 11%;
+    --primary-foreground: 0 0% 100%;
+    --primary-blue: 203 76% 44%;
+    
+    /* Secondary: Light Blue + Gray */
+    --secondary: 203 100% 62%;
+    --secondary-foreground: 237 48% 11%;
+    --secondary-light: 216 27% 94%;
+    
+    /* Phase Colors */
+    --spark: 0 79% 71%;
+    --spark-foreground: 0 0% 100%;
+    --momentum: 45 90% 55%;
+    --momentum-foreground: 237 48% 11%;
+    --mastery: 162 93% 43%;
+    --mastery-foreground: 0 0% 100%;
+    
+    /* UI Elements */
+    --card: 0 0% 100%;
+    --card-foreground: 237 48% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 237 48% 11%;
+    --muted: 216 27% 94%;
+    --muted-foreground: 220 9% 46%;
+    --accent: 203 100% 62%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 216 27% 90%;
+    --input: 216 27% 90%;
+    --ring: 203 76% 44%;
+    --radius: 0.75rem;
+    
+    /* Gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary-blue)) 100%);
+    --gradient-spark: linear-gradient(135deg, hsl(var(--spark)) 0%, hsl(0 79% 60%) 100%);
+    --gradient-momentum: linear-gradient(135deg, hsl(var(--momentum)) 0%, hsl(45 85% 48%) 100%);
+    --gradient-mastery: linear-gradient(135deg, hsl(var(--mastery)) 0%, hsl(162 93% 35%) 100%);
+    
+    /* Shadows */
+    --shadow-sm: 0 2px 8px rgba(27, 27, 58, 0.08);
+    --shadow-md: 0 4px 16px rgba(27, 27, 58, 0.12);
+    --shadow-lg: 0 8px 32px rgba(27, 27, 58, 0.16);
+    --shadow-xl: 0 16px 48px rgba(27, 27, 58, 0.2);
+    
+    /* Transitions */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .dark {
+    --background: 237 48% 11%;
+    --foreground: 0 0% 98%;
+    --primary: 203 100% 62%;
+    --primary-foreground: 237 48% 11%;
+    --primary-blue: 203 76% 44%;
+    --secondary: 237 30% 20%;
+    --secondary-foreground: 0 0% 98%;
+    --card: 237 40% 15%;
+    --card-foreground: 0 0% 98%;
+    --popover: 237 40% 15%;
+    --popover-foreground: 0 0% 98%;
+    --muted: 237 30% 20%;
+    --muted-foreground: 220 9% 70%;
+    --accent: 203 76% 44%;
+    --accent-foreground: 0 0% 100%;
+    --border: 237 30% 25%;
+    --input: 237 30% 25%;
+    --ring: 203 100% 62%;
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
+    --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.6);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading font-bold;
+  }
+}
+
+@layer utilities {
+  .gradient-hero {
+    background: var(--gradient-hero);
+  }
+  
+  .gradient-spark {
+    background: var(--gradient-spark);
+  }
+  
+  .gradient-momentum {
+    background: var(--gradient-momentum);
+  }
+  
+  .gradient-mastery {
+    background: var(--gradient-mastery);
+  }
+  
+  .shadow-smooth {
+    box-shadow: var(--shadow-md);
+  }
+  
+  .shadow-smooth-lg {
+    box-shadow: var(--shadow-lg);
+  }
+  
+  .transition-smooth {
+    transition: var(--transition-smooth);
+  }
+  
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px) rotate(0deg);
+    }
+    25% {
+      transform: translateY(-20px) rotate(5deg);
+    }
+    50% {
+      transform: translateY(-10px) rotate(-5deg);
+    }
+    75% {
+      transform: translateY(-15px) rotate(3deg);
+    }
+  }
+}
