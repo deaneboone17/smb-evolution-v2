@@ -43,45 +43,40 @@ const ResourcesList = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      // Fetch all phases
-      const { data: phasesData } = await supabase
-        .from('phases')
-        .select('*');
+      const { resources: localResources } = await import('@/data/resources');
+
+      // Mock phases data
+      const phasesData = [
+        { id: 'phase_spark', slug: 'spark', title: 'Spark', overview: 'Build your foundation with a few high-impact systems.' },
+        { id: 'phase_momentum', slug: 'momentum', title: 'Momentum', overview: 'Scale what works with repeatable systems.' },
+        { id: 'phase_mastery', slug: 'mastery', title: 'Mastery', overview: 'Optimize, innovate, and lead with AI.' }
+      ];
 
       const phaseOrder = ['spark', 'momentum', 'mastery'];
-      const orderedPhases = (phasesData || []).sort((a, b) => {
+      const orderedPhases = phasesData.sort((a, b) => {
         return phaseOrder.indexOf(a.slug) - phaseOrder.indexOf(b.slug);
       });
-      setPhases(orderedPhases);
+      setPhases(orderedPhases as any);
 
       // Determine effective phase object
       const currentPhase = activePhase && activePhase !== 'all'
         ? orderedPhases.find(p => p.slug === activePhase)
         : null;
 
-      setCurrentPhaseData(currentPhase || null);
+      setCurrentPhaseData(currentPhase as any || null);
 
-      // Build query
-      let query = supabase
-        .from('resources')
-        .select('*, phases(*)')
-        .eq('published', true);
+      let filteredResources = localResources;
 
       if (currentPhase) {
-        query = query.eq('phase_id', currentPhase.id);
+        filteredResources = filteredResources.filter(r => r.phases?.slug === currentPhase.slug);
       }
-
-      // Apply sorting
-      query = query.order('published_at', { ascending: false });
 
       // Filter by category
       if (categoryFilter !== 'all') {
-        query = query.eq('type', categoryFilter);
+        filteredResources = filteredResources.filter(r => r.type === categoryFilter);
       }
 
-      const { data } = await query;
-      setResources(data || []);
-
+      setResources(filteredResources as any);
       setLoading(false);
     };
 

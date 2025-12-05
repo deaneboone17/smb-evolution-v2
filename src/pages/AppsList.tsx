@@ -45,63 +45,48 @@ const AppsList = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      // Fetch all phases
-      const { data: phasesData } = await supabase
-        .from('phases')
-        .select('*');
+      const { apps: localApps } = await import('@/data/apps');
+
+      // Mock phases data
+      const phasesData = [
+        { id: 'phase_spark', slug: 'spark', title: 'Spark', overview: 'Build your foundation with a few high-impact systems.', primary_pains: ['Manual data entry', 'Repetitive emails', 'Disorganized files'] },
+        { id: 'phase_momentum', slug: 'momentum', title: 'Momentum', overview: 'Scale what works with repeatable systems.', primary_pains: ['Bottlenecks in delivery', 'Inconsistent quality', 'Team alignment'] },
+        { id: 'phase_mastery', slug: 'mastery', title: 'Mastery', overview: 'Optimize, innovate, and lead with AI.', primary_pains: ['Lack of strategic insight', 'Slow decision making', 'Market disruption'] }
+      ];
 
       const phaseOrder = ['spark', 'momentum', 'mastery'];
-      const orderedPhases = (phasesData || []).sort((a, b) => {
+      const orderedPhases = phasesData.sort((a, b) => {
         return phaseOrder.indexOf(a.slug) - phaseOrder.indexOf(b.slug);
       });
-      setPhases(orderedPhases);
+      setPhases(orderedPhases as any);
 
       // Determine effective phase object
       const currentPhase = activePhase && activePhase !== 'all'
         ? orderedPhases.find(p => p.slug === activePhase)
         : null;
 
-      setCurrentPhaseData(currentPhase || null);
+      setCurrentPhaseData(currentPhase as any || null);
 
-      // Build query
-      let query = supabase
-        .from('apps')
-        .select('*, phases(*)')
-        .eq('published', true);
+      let filteredApps = localApps;
 
       if (currentPhase) {
-        query = query.eq('phase_id', currentPhase.id);
+        filteredApps = filteredApps.filter(a => a.phases?.slug === currentPhase.slug);
       }
-
-      // Apply sorting
-      query = query.order('sort_order', { ascending: true });
 
       // Filter by category
       if (categoryFilter !== 'all') {
-        query = query.eq('category', categoryFilter);
+        filteredApps = filteredApps.filter(a => a.category === categoryFilter);
       }
 
-      const { data } = await query;
-      setApps(data || []);
+      setApps(filteredApps as any);
 
-      // Fetch next phase apps (only if we are in a specific phase)
+      // Fetch next phase apps
       if (activePhase && activePhase !== 'all') {
         const currentIndex = phaseOrder.indexOf(activePhase);
         if (currentIndex < phaseOrder.length - 1) {
           const nextPhaseSlug = phaseOrder[currentIndex + 1];
-          const nextPhase = orderedPhases.find(p => p.slug === nextPhaseSlug);
-
-          if (nextPhase) {
-            const { data: nextData } = await supabase
-              .from('apps')
-              .select('*, phases(*)')
-              .eq('published', true)
-              .eq('phase_id', nextPhase.id)
-              .order('sort_order', { ascending: true })
-              .limit(3);
-
-            setNextPhaseApps(nextData || []);
-          }
+          const nextApps = localApps.filter(a => a.phases?.slug === nextPhaseSlug).slice(0, 3);
+          setNextPhaseApps(nextApps as any);
         } else {
           setNextPhaseApps([]);
         }

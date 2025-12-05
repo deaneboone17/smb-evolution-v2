@@ -35,44 +35,40 @@ const NewsletterList = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      // Fetch all phases
-      const { data: phasesData } = await supabase
-        .from('phases')
-        .select('*');
+      const { newsletterIssues: localIssues } = await import('@/data/newsletters');
+
+      // Mock phases data
+      const phasesData = [
+        { id: 'phase_spark', slug: 'spark', title: 'Spark', overview: 'Build your foundation with a few high-impact systems.', primary_objectives: ['Reclaim 5-10 hours/week', 'Validate your offer', 'Install basic AI tools'] },
+        { id: 'phase_momentum', slug: 'momentum', title: 'Momentum', overview: 'Scale what works with repeatable systems.', primary_objectives: ['Automate lead flow', 'Standardize delivery', 'Expand team capacity'] },
+        { id: 'phase_mastery', slug: 'mastery', title: 'Mastery', overview: 'Optimize, innovate, and lead with AI.', primary_objectives: ['Executive dashboards', 'Predictive insights', 'Self-improving systems'] }
+      ];
 
       const phaseOrder = ['spark', 'momentum', 'mastery'];
-      const orderedPhases = (phasesData || []).sort((a, b) => {
+      const orderedPhases = phasesData.sort((a, b) => {
         return phaseOrder.indexOf(a.slug) - phaseOrder.indexOf(b.slug);
       });
-      setPhases(orderedPhases);
+      setPhases(orderedPhases as any);
 
       // Determine effective phase object
       const currentPhase = activePhase && activePhase !== 'all'
         ? orderedPhases.find(p => p.slug === activePhase)
         : null;
 
-      setCurrentPhaseData(currentPhase || null);
+      setCurrentPhaseData(currentPhase as any || null);
 
-      // Build query
-      let query = supabase
-        .from('newsletter_issues')
-        .select('*, phases(*)')
-        .eq('published', true)
-        .order('priority', { ascending: false })
-        .order('published_at', { ascending: false });
+      let filteredIssues = localIssues;
 
       if (currentPhase) {
-        query = query.eq('phase_id', currentPhase.id);
+        filteredIssues = filteredIssues.filter(i => i.phases?.slug === currentPhase.slug);
       }
 
       // Filter by type
       if (typeFilter && typeFilter !== 'all') {
-        query = query.eq('type', typeFilter);
+        filteredIssues = filteredIssues.filter(i => i.type === typeFilter);
       }
 
-      const { data } = await query;
-      setIssues(data || []);
-
+      setIssues(filteredIssues as any);
       setLoading(false);
     };
 

@@ -44,46 +44,42 @@ const ProductsList = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      // Fetch all phases
-      const { data: phasesData } = await supabase
-        .from('phases')
-        .select('*');
+      // Use local data instead of Supabase
+      // Import dynamically to avoid top-level import issues if needed, or just use the imported data
+      const { products: localProducts } = await import('@/data/products');
+
+      // Mock phases data since we're not fetching from DB
+      const phasesData = [
+        { id: 'phase_spark', slug: 'spark', title: 'Spark', overview: 'Build your foundation with a few high-impact systems.', primary_objectives: ['Reclaim 5-10 hours/week', 'Validate your offer', 'Install basic AI tools'] },
+        { id: 'phase_momentum', slug: 'momentum', title: 'Momentum', overview: 'Scale what works with repeatable systems.', primary_objectives: ['Automate lead flow', 'Standardize delivery', 'Expand team capacity'] },
+        { id: 'phase_mastery', slug: 'mastery', title: 'Mastery', overview: 'Optimize, innovate, and lead with AI.', primary_objectives: ['Executive dashboards', 'Predictive insights', 'Self-improving systems'] }
+      ];
 
       const phaseOrder = ['spark', 'momentum', 'mastery'];
-      const sortedPhases = (phasesData || []).sort((a, b) => {
+      const sortedPhases = phasesData.sort((a, b) => {
         return phaseOrder.indexOf(a.slug) - phaseOrder.indexOf(b.slug);
       });
-      setPhases(sortedPhases);
+      setPhases(sortedPhases as any);
 
       // Determine current phase object based on global activePhase string
       const currentPhase = activePhase && activePhase !== 'all'
         ? sortedPhases.find(p => p.slug === activePhase) || null
         : null;
 
-      // Build query
-      let query = supabase
-        .from('products')
-        .select('*, phases(*)')
-        .eq('published', true);
+      // Filter products locally
+      let filteredProducts = localProducts;
 
       // Filter by phase if one is selected
       if (currentPhase) {
-        query = query.eq('phase_id', currentPhase.id);
+        filteredProducts = filteredProducts.filter(p => p.phases?.slug === currentPhase.slug);
       }
-
-      // Apply sorting
-      query = query
-        .order('priority', { ascending: false })
-        .order('created_at', { ascending: false });
 
       // Filter by category
       if (categoryFilter !== 'all') {
-        query = query.eq('category', categoryFilter);
+        filteredProducts = filteredProducts.filter(p => p.category === categoryFilter);
       }
 
-      const { data } = await query;
-      setProducts(data || []);
-
+      setProducts(filteredProducts as any);
       setLoading(false);
     };
 
