@@ -9,88 +9,62 @@ const About = () => {
     <>
       <SEO
         title="About Us | SMB Evolution.ai"
-        description="Learn about our mission to empower small and medium businesses through strategic evolution"
+        description="Building the AI-Native Enterprise. We help business owners cross the chasm from Observer to Achiever."
       />
       <Header />
       <main className="min-h-screen bg-[#1B1B3A]">
         <section className="py-20">
           <div className="container mx-auto px-4 max-w-4xl">
+
+            {/* Headline */}
             <div className="text-center mb-16">
-              <h1 className="text-4xl md:text-5xl font-heading font-bold mb-6 text-white">
-                About SMB Evolution.ai
+              <h1 className="text-4xl md:text-5xl font-montserrat font-bold mb-6 text-white">
+                Building the AI-Native Enterprise.
               </h1>
-              <p className="text-xl text-gray-300">
-                Empowering businesses to evolve from startup spark to industry mastery
-              </p>
             </div>
 
-            <Card className="shadow-smooth-lg mb-12 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl">
+            {/* Section 1: The Great Bifurcation */}
+            <Card className="shadow-smooth-lg mb-8 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl">
               <CardContent className="p-8 space-y-6">
-                <h2 className="text-3xl font-heading font-bold text-white">Building the AI-Native Economy.</h2>
-                <p className="text-lg text-gray-300 leading-relaxed">
-                  We believe every small and medium business has the potential to achieve extraordinary success. Our mission is to provide the strategic guidance, proven frameworks, and practical tools needed to navigate each stage of the business evolution journey.
+                <h2 className="text-2xl md:text-3xl font-montserrat font-bold text-white mb-4">The Great Bifurcation</h2>
+                <p className="text-lg text-gray-300 font-inter leading-relaxed">
+                  The economy is splitting in two. According to <span className="font-semibold text-white">McKinsey’s State of AI 2025 report</span>, while <span className="font-semibold text-white">78%</span> of organizations have adopted AI, only <span className="font-semibold text-white">6%</span> qualify as High Performers—those attributing significant earnings to their AI integration.
+                </p>
+                <p className="text-lg text-gray-300 font-inter leading-relaxed">
+                  The vast majority are Observers—paralyzed by the velocity of <span className="font-semibold text-white">5,000 new tools</span> appearing weekly. The remaining 6% are Achievers who have recognized AI not as a tool, but as a new operating system for the enterprise.
                 </p>
               </CardContent>
             </Card>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-              <Card className="shadow-smooth bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl">
-                <CardContent className="p-6 space-y-4">
-                  <Target className="h-12 w-12 text-[#FF6B6B]" />
-                  <h3 className="text-xl font-heading font-bold text-white">Our Vision</h3>
-                  <p className="text-gray-300">
-                    A world where every SMB reaches its full potential through strategic evolution and continuous growth.
-                  </p>
-                </CardContent>
-              </Card>
+            {/* Section 2: Our Philosophy */}
+            <Card className="shadow-smooth-lg mb-8 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl">
+              <CardContent className="p-8 space-y-6">
+                <h2 className="text-2xl md:text-3xl font-montserrat font-bold text-white mb-4">Our Philosophy</h2>
+                <p className="text-lg text-gray-300 font-inter leading-relaxed">
+                  We reject the "revolutionary" approach of tearing down existing business processes. We believe in Evolution.
+                </p>
+                <p className="text-lg text-gray-300 font-inter leading-relaxed">
+                  We help business owners cross the chasm by weaving intelligence into the fabric of daily workflows—starting with a Spark of quick wins, building Momentum through connected systems, and achieving Mastery via autonomous agents.
+                </p>
+              </CardContent>
+            </Card>
 
-              <Card className="shadow-smooth bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl">
-                <CardContent className="p-6 space-y-4">
-                  <Users className="h-12 w-12 text-[#FFD166]" />
-                  <h3 className="text-xl font-heading font-bold text-white">Our Approach</h3>
-                  <p className="text-gray-300">
-                    We combine proven business frameworks with personalized guidance tailored to your specific growth stage.
-                  </p>
-                </CardContent>
-              </Card>
-            </div>
-
-            <Card className="shadow-smooth-lg bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl">
+            {/* Section 3: The Architect */}
+            <Card className="shadow-smooth-lg bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl">
               <CardContent className="p-8">
-                <h2 className="text-3xl font-heading font-bold mb-6 text-white">Core Values</h2>
-                <div className="space-y-6">
-                  <div className="flex items-start">
-                    <Lightbulb className="h-8 w-8 text-primary-blue mr-4 mt-1 flex-shrink-0" />
-                    <div>
-                      <h3 className="text-xl font-heading font-bold mb-2 text-white">Innovation</h3>
-                      <p className="text-gray-300">
-                        We continuously evolve our methodologies to incorporate the latest business insights and technologies.
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start">
-                    <TrendingUp className="h-8 w-8 text-primary-blue mr-4 mt-1 flex-shrink-0" />
-                    <div>
-                      <h3 className="text-xl font-heading font-bold mb-2 text-white">Results-Driven</h3>
-                      <p className="text-gray-300">
-                        Every strategy, tool, and resource we provide is designed to deliver measurable business outcomes.
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start">
-                    <Users className="h-8 w-8 text-primary-blue mr-4 mt-1 flex-shrink-0" />
-                    <div>
-                      <h3 className="text-xl font-heading font-bold mb-2 text-white">Partnership</h3>
-                      <p className="text-gray-300">
-                        We view ourselves as partners in your journey, invested in your long-term success.
-                      </p>
-                    </div>
+                <h2 className="text-2xl md:text-3xl font-montserrat font-bold text-white mb-6">The Architect</h2>
+                <div className="flex flex-col md:flex-row gap-6 items-start">
+                  <div className="flex-1">
+                    <h3 className="text-xl font-montserrat font-bold text-white mb-1">Deane Boone</h3>
+                    <p className="text-[#1C77C3] font-medium mb-4">Founder & Lead Architect</p>
+                    <p className="text-lg text-gray-300 font-inter leading-relaxed">
+                      Deane is a strategic architect focused on the transition to the autonomous enterprise. He builds the systems that scale human capability, moving SMBs from "Random Acts of AI" to engineered, data-driven growth.
+                    </p>
                   </div>
                 </div>
               </CardContent>
             </Card>
+
           </div>
         </section>
       </main>
